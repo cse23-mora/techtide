@@ -1,0 +1,100 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import { getCollection } from "astro:content";
+import FormattedDate from "../components/FormattedDate.astro";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body class="dark:bg-neutral-900 antialiased text-gray-900 dark:text-gray-100">
+    <Header />
+    <main class="min-h-screen">
+      <!-- Card Blog -->
+      <header class="h-[28rem] bg-gray-50 dark:bg-neutral-800">
+        <div class="container mx-auto px-4 flex h-full py-6 items-center">
+          <div class="max-w-xl">
+            <p class="text-sky-500 uppercase tracking-wider">
+              TechTide - Batch 23 CSE, UoM
+            </p>
+
+            <h2 class="text-3xl xl:text-4xl font-bold mt-4 text-gray-800 dark:text-white capitalize">
+              Your Weekly Dive into Technology
+            </h2>
+
+            <p class="text-gray-500 dark:text-gray-300 mt-4 text-lg">
+              Explore the latest in computer science and engineering with
+              articles curated by the students of the University of Moratuwa's
+              Batch 23.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <section class="container mx-auto px-4 py-16">
+        <div class="flex items-center justify-between">
+          <h2 class="text-gray-800 dark:text-white font-bold text-3xl">Latest Articles</h2>
+
+          <!-- Optional Explore All Button -->
+          <!-- <button class="...">Explore All</button> -->
+        </div>
+
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 mt-12 xl:grid-cols-3">
+          {
+            posts.map((post) => (
+              <div class="bg-white dark:bg-neutral-800 rounded-lg overflow-hidden shadow">
+                <img
+                  class="object-cover object-center w-full h-48"
+                  src={post.data.heroImage}
+                  alt=""
+                />
+
+                <div class="p-6">
+                  <h1 class="text-xl font-semibold text-gray-800 dark:text-white truncate">
+                    {post.data.title}
+                  </h1>
+
+                  <p class="mt-2 text-gray-600 dark:text-gray-300">
+                    {post.data.description}
+                  </p>
+
+                  <div class="flex items-center justify-between mt-4">
+                    <div>
+                      <a
+                        href="#"
+                        class="text-lg font-medium text-gray-700 dark:text-gray-200 hover:underline hover:text-gray-500 dark:hover:text-gray-400"
+                      >
+                        {post.data.author}
+                      </a>
+                      <p class="text-sm text-gray-500 dark:text-gray-400">
+                        <FormattedDate date={post.data.pubDate} />
+                      </p>
+                    </div>
+
+                    <a
+                      href={`/blog/${post.id}/`}
+                      class="inline-block text-sky-500 underline hover:text-sky-400"
+                    >
+                      Read more
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+      <!-- End Card Blog -->
+    </main>
+    <Footer />
+  </body>
+</html>
