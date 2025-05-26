@@ -7,6 +7,6 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://cse23.org',
+    site: 'https://techtide.cse23.org',
     integrations: [mdx(), sitemap(), tailwind()],
 });
