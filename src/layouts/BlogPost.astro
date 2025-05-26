@@ -20,74 +20,98 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="dark:bg-neutral-900 antialiased">
+  <body class="dark:bg-neutral-950 antialiased text-gray-900 dark:text-gray-100 bg-gradient-to-br from-slate-50 to-blue-50 dark:from-neutral-950 dark:to-slate-900">
     <Header />
-    <main>
-      <article
-        class=""
-      >
+    <main class="min-h-screen">
+      <article class="relative">
+        <!-- Hero Section -->
+        <header class="relative h-96 overflow-hidden mb-8">
+          <!-- Gradient Background -->
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 dark:from-blue-900 dark:via-indigo-900 dark:to-purple-900"></div>
+          
+          <!-- Animated Background Pattern -->
+          <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 w-48 h-48 bg-white rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
+            <div class="absolute top-20 right-10 w-48 h-48 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-200"></div>
+            <div class="absolute -bottom-4 left-20 w-48 h-48 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse animation-delay-400"></div>
+          </div>
+          
+          <!-- Content -->
+          <div class="relative container mx-auto px-4 flex h-full py-8 items-center justify-center">
+            <div class="text-center max-w-4xl">
+              <div class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 mb-6">
+                <div class="w-2 h-2 bg-emerald-400 rounded-full mr-3 animate-pulse"></div>
+                <p class="text-white/90 font-medium tracking-wide text-sm">
+                  <FormattedDate date={pubDate} />
+                </p>
+              </div>
+              
+              <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4">
+                {title}
+              </h1>
+              
+              <p class="text-white/80 text-lg leading-relaxed max-w-2xl mx-auto">
+                {description}
+              </p>
+            </div>
+          </div>
+        </header>
+
         <!-- Blog Article -->
-        <div class="max-w-[85rem] w-full px-4 sm:px-6 lg:px-8 mx-auto">
-          <div class="grid lg:grid-cols-3 gap-y-8 lg:gap-y-0 lg:gap-x-6">
+        <div class="container mx-auto px-4 relative">
+          <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
             <!-- Content -->
             <div class="lg:col-span-2">
-              <div class="py-8 lg:pe-8">
-                <div class="space-y-5 lg:space-y-8">
-                  <a
-                    class="inline-flex items-center gap-x-1.5 text-sm text-gray-600 decoration-2 hover:underline focus:outline-none focus:underline dark:text-blue-500"
-                    href="/"
-                  >
-                    <svg
-                      class="shrink-0 size-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      ><path d="m15 18-6-6 6-6"></path></svg
-                    >
-                    Back to all Articles
-                  </a>
-
-                  {
-                    heroImage && (
-                      <div class="rounded-3xl overflow-clip shadow-lg flex w-full">
-                        <img class="w-full h-auto" src={heroImage} alt="" />
-                      </div>
-                    )
-                  }
-
-                  <h2 class="text-3xl font-bold lg:text-5xl dark:text-white">
-                    {title}
-                  </h2>
-
-                  <div class="flex items-center gap-x-5">
+              <div class="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-gray-200/50 dark:border-neutral-800 overflow-hidden">
+                <div class="p-8 lg:p-12">
+                  <div class="space-y-8">
+                    <!-- Back Navigation -->
                     <a
-                      class="inline-flex items-center gap-1.5 py-1 px-3 sm:py-2 sm:px-4 rounded-full text-xs sm:text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:bg-neutral-800"
-                      href="#"
+                      class="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-medium rounded-lg hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-all duration-300 text-sm"
+                      href="/"
                     >
-                      Article
+                      <svg
+                        class="w-4 h-4"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
+                      </svg>
+                      Back to all Articles
                     </a>
-                    <p
-                      class="text-xs sm:text-sm text-gray-800 dark:text-neutral-200"
-                    >
-                      <FormattedDate date={pubDate} />
-                    </p>
 
+                    <!-- Hero Image -->
                     {
-                      updatedDate && (
-                        <p class="text-xs sm:text-sm text-gray-800 dark:text-neutral-200">
-                          Last updated on <FormattedDate date={updatedDate} />
-                        </p>
+                      heroImage && (
+                        <div class="rounded-2xl overflow-hidden shadow-lg">
+                          <img class="w-full h-auto object-cover" src={heroImage} alt={title} />
+                        </div>
                       )
                     }
-                  </div>
-                  <div class="w-full prose-lg lg:prose-xl text-gray-800 dark:text-neutral-200">
-                    <slot />
+
+                    <!-- Article Meta -->
+                    <div class="flex flex-wrap items-center gap-4">
+                      <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-medium rounded-full">
+                        Article
+                      </span>
+                      <span class="text-gray-500 dark:text-gray-400 text-sm">
+                        Published <FormattedDate date={pubDate} />
+                      </span>
+                      {
+                        updatedDate && (
+                          <span class="text-gray-500 dark:text-gray-400 text-sm">
+                            Updated <FormattedDate date={updatedDate} />
+                          </span>
+                        )
+                      }
+                    </div>
+
+                    <!-- Article Content -->
+                    <div class="prose prose-lg lg:prose-xl max-w-none prose-headings:text-gray-900 dark:prose-headings:text-white prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-strong:text-gray-900 dark:prose-strong:text-white prose-code:text-blue-600 dark:prose-code:text-blue-400 prose-pre:bg-gray-100 dark:prose-pre:bg-neutral-800 prose-blockquote:border-blue-500 prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300">
+                      <slot />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -95,43 +119,50 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             <!-- End Content -->
 
             <!-- Sidebar -->
-            <div
-              class="lg:col-span-1 lg:w-full lg:h-full lg:bg-gradient-to-r lg:from-gray-50 lg:via-transparent lg:to-transparent dark:from-neutral-800"
-            >
-              <div class="sticky top-20 start-0 py-8 lg:ps-8">
-                <h3 class="text-lg font-bold text-gray-800 dark:text-white">
-                  Recent Articles
-                </h3>
-                <hr class="border-2" />
-                <div class="space-y-6 pt-8">
-                  <!-- Media -->
-                  {
-                    posts.map((post) => (
-                      <a
-                        class="group flex items-center gap-x-6 focus:outline-none"
-                        href={`/blog/${post.id}/`}
-                      >
-                        <div class="grow">
-                          <span class="text-sm font-bold text-gray-800 group-hover:text-blue-600 group-focus:text-blue-600 dark:text-neutral-200 dark:group-hover:text-blue-500 dark:group-focus:text-blue-500">
-                            {post.data.title}
-                          </span>
-                          <p class="mt-2 text-gray-500 dark:text-neutral-400">
-                            <FormattedDate date={post.data.pubDate} />
-                          </p>
-                        </div>
+            <div class="lg:col-span-1">
+              <div class="sticky top-8">
+                <div class="bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-gray-200/50 dark:border-neutral-800 p-8">
+                  <div class="space-y-8">
+                    <!-- Recent Articles Header -->
+                    <div>
+                      <div class="inline-flex items-center px-4 py-2 bg-blue-100 dark:bg-blue-900/30 rounded-full mb-4">
+                        <span class="text-blue-600 dark:text-blue-400 font-medium text-sm">RECENT ARTICLES</span>
+                      </div>
+                      <h3 class="text-2xl font-bold text-gray-900 dark:text-white">
+                        More from TechTide
+                      </h3>
+                    </div>
 
-                        <div class="shrink-0 relative rounded-lg overflow-hidden size-20">
-                          <img
-                            class="size-full absolute top-0 start-0 object-cover rounded-lg"
-                            src={post.data.heroImage}
-                            alt="Blog Image"
-                          />
-                        </div>
-                      </a>
-                    ))
-                  }
-
-                  <!-- End Media -->
+                    <!-- Recent Articles List -->
+                    <div class="space-y-6">
+                      {
+                        posts.slice(0, 5).map((post) => (
+                          <a
+                            class="group block p-4 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-800 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-neutral-700"
+                            href={`/blog/${post.id}/`}
+                          >
+                            <div class="flex items-center gap-4">
+                              <div class="shrink-0 relative rounded-lg overflow-hidden w-16 h-16">
+                                <img
+                                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                  src={post.data.heroImage}
+                                  alt={post.data.title}
+                                />
+                              </div>
+                              <div class="flex-1 min-w-0">
+                                <h4 class="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 text-sm line-clamp-2 leading-tight">
+                                  {post.data.title}
+                                </h4>
+                                <p class="mt-1 text-gray-500 dark:text-gray-400 text-xs">
+                                  <FormattedDate date={post.data.pubDate} />
+                                </p>
+                              </div>
+                            </div>
+                          </a>
+                        ))
+                      }
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,5 +173,20 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
       </article>
     </main>
     <Footer />
+
+    <style>
+      .animation-delay-200 {
+        animation-delay: 200ms;
+      }
+      .animation-delay-400 {
+        animation-delay: 400ms;
+      }
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+    </style>
   </body>
 </html>
